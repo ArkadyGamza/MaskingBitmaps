@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.arkadygamza.maskingbitmaps.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/bg"
+        android:scaleType="fitCenter" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setDrawablePD"
+        android:text="Set drawable Porter-Duff" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setDrawablePDNoBuffer"
+        android:text="Set drawable Porter-Duff no buffer" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setDrawablePDNoBufferAlpha"
+        android:text="Set drawable Porter-Duff no buffer, 0.5 alpha" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setDrawableShader"
+        android:text="Set drawable Bitmap Shader" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setDrawableShaderAlpha"
+        android:text="Set drawable Bitmap Shader, 0.5 alpha" />
+
+</LinearLayout>
