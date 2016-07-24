@@ -6,13 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView mImageView;
-    private Bitmap pictureBitmap;
-    private Bitmap mMaskBitmapAlpha;
+    private Bitmap mPictureBitmap;
+    private Bitmap mMaskBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,43 +22,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadImages() {
-        pictureBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.picture);
-        mMaskBitmapAlpha = BitmapFactory.decodeResource(getResources(), R.drawable.mask_circle).extractAlpha();
+        mPictureBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.picture);
+        mMaskBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mask_circle).extractAlpha();
     }
 
-    public void setDrawablePD(View view) {
-        MaskedDrawablePorterDuff maskedDrawable = new MaskedDrawablePorterDuff();
-        maskedDrawable.setPictureBitmap(pictureBitmap);
-        maskedDrawable.setMaskBitmap(mMaskBitmapAlpha);
+    public void setDrawablePDDstIn(View view) {
+        MaskedDrawablePorterDuffDstIn maskedDrawable = new MaskedDrawablePorterDuffDstIn();
+        maskedDrawable.setPictureBitmap(mPictureBitmap);
+        maskedDrawable.setMaskBitmap(mMaskBitmap);
+        mImageView.setImageDrawable(maskedDrawable);
+    }
+
+    public void setDrawablePDSrcIn(View view) {
+        MaskedDrawablePorterDuffSrcIn maskedDrawable = new MaskedDrawablePorterDuffSrcIn();
+        maskedDrawable.setPictureBitmap(mPictureBitmap);
+        maskedDrawable.setMaskBitmap(mMaskBitmap);
         mImageView.setImageDrawable(maskedDrawable);
     }
 
     public void setDrawablePDNoBuffer(View view) {
         MaskedDrawablePorterDuffNoBuffer maskedDrawable = new MaskedDrawablePorterDuffNoBuffer();
-        maskedDrawable.setPictureBitmap(pictureBitmap);
-        maskedDrawable.setMaskBitmap(mMaskBitmapAlpha);
+        maskedDrawable.setPictureBitmap(mPictureBitmap);
+        maskedDrawable.setMaskBitmap(mMaskBitmap);
         mImageView.setImageDrawable(maskedDrawable);
     }
 
     public void setDrawablePDNoBufferAlpha(View view) {
         MaskedDrawablePorterDuffNoBuffer maskedDrawable = new MaskedDrawablePorterDuffNoBuffer();
-        maskedDrawable.setPictureBitmap(pictureBitmap);
-        maskedDrawable.setMaskBitmap(mMaskBitmapAlpha);
+        maskedDrawable.setPictureBitmap(mPictureBitmap);
+        maskedDrawable.setMaskBitmap(mMaskBitmap);
         maskedDrawable.setAlpha(128);
         mImageView.setImageDrawable(maskedDrawable);
     }
 
     public void setDrawableShader(View view) {
         MaskedDrawableBitmapShader maskedDrawable = new MaskedDrawableBitmapShader();
-        maskedDrawable.setPictureBitmap(pictureBitmap);
-        maskedDrawable.setMaskBitmap(mMaskBitmapAlpha);
+        maskedDrawable.setPictureBitmap(mPictureBitmap);
+        maskedDrawable.setMaskBitmap(mMaskBitmap);
         mImageView.setImageDrawable(maskedDrawable);
     }
 
     public void setDrawableShaderAlpha(View view) {
         MaskedDrawableBitmapShader maskedDrawable = new MaskedDrawableBitmapShader();
-        maskedDrawable.setPictureBitmap(pictureBitmap);
-        maskedDrawable.setMaskBitmap(mMaskBitmapAlpha);
+        maskedDrawable.setPictureBitmap(mPictureBitmap);
+        maskedDrawable.setMaskBitmap(mMaskBitmap);
         maskedDrawable.setAlpha(128);
         mImageView.setImageDrawable(maskedDrawable);
     }

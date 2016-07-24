@@ -10,7 +10,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
-public class MaskedDrawablePorterDuff extends Drawable {
+public class MaskedDrawablePorterDuffSrcIn extends Drawable {
 
     private Bitmap mPictureBitmap;
     private Bitmap mMaskBitmap;
@@ -18,7 +18,7 @@ public class MaskedDrawablePorterDuff extends Drawable {
     private Canvas mBufferCanvas;
     private final Paint mPaintSrcIn = new Paint();
 
-    public MaskedDrawablePorterDuff() {
+    public MaskedDrawablePorterDuffSrcIn() {
         mPaintSrcIn.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
     }
 
