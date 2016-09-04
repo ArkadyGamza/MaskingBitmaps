@@ -6,21 +6,19 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.shapes.PathShape;
 
-public class MaskedDrawableBitmapShader extends Drawable {
+public class FixedMaskDrawableBitmapShader extends Drawable {
 
     private Bitmap mPictureBitmap;
-    private Bitmap mMaskBitmap;
     private final Paint mPaintShader = new Paint();
     private BitmapShader mBitmapShader;
+    private Path mPath;
 
-    public void setMaskBitmap(Bitmap maskBitmap) {
-        mMaskBitmap = maskBitmap;
-        updateScaleMatrix();
-    }
 
     public void setPictureBitmap(Bitmap src) {
         mPictureBitmap = src;
@@ -28,36 +26,20 @@ public class MaskedDrawableBitmapShader extends Drawable {
             Shader.TileMode.REPEAT,
             Shader.TileMode.REPEAT);
         mPaintShader.setShader(mBitmapShader);
-        updateScaleMatrix();
+
+        mPath = new Path();
+        mPath.addOval(0, 0, getIntrinsicWidth(), getIntrinsicHeight(), Path.Direction.CW);
+        Path subPath = new Path();
+        subPath.addOval(getIntrinsicWidth() * 0.7f, getIntrinsicHeight() * 0.7f, getIntrinsicWidth(), getIntrinsicHeight(), Path.Direction.CW);
+        mPath.op(subPath, Path.Op.DIFFERENCE);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        if (mPictureBitmap == null || mMaskBitmap == null) {
+        if (mPictureBitmap == null) {
             return;
         }
-        canvas.drawBitmap(mMaskBitmap, 0, 0, mPaintShader);
-    }
-
-    private void updateScaleMatrix() {
-        if (mPictureBitmap == null || mMaskBitmap == null) {
-            return;
-        }
-
-        int maskW = mMaskBitmap.getWidth();
-        int maskH = mMaskBitmap.getHeight();
-        int pictureW = mPictureBitmap.getWidth();
-        int pictureH = mPictureBitmap.getHeight();
-
-        float wScale = maskW / (float) pictureW;
-        float hScale = maskH / (float) pictureH;
-
-        float scale = Math.max(wScale, hScale);
-
-        Matrix matrix = new Matrix();
-        matrix.setScale(scale, scale);
-        matrix.postTranslate((maskW - pictureW * scale) / 2f, (maskH - pictureH * scale) / 2f);
-        mBitmapShader.setLocalMatrix(matrix);
+        canvas.drawPath(mPath, mPaintShader);
     }
 
     @Override
@@ -77,11 +59,11 @@ public class MaskedDrawableBitmapShader extends Drawable {
 
     @Override
     public int getIntrinsicWidth() {
-        return mMaskBitmap != null ? mMaskBitmap.getWidth() : super.getIntrinsicWidth();
+        return mPictureBitmap != null ? mPictureBitmap.getWidth() : super.getIntrinsicWidth();
     }
 
     @Override
     public int getIntrinsicHeight() {
-        return mMaskBitmap != null ? mMaskBitmap.getHeight() : super.getIntrinsicHeight();
+        return mPictureBitmap != null ? mPictureBitmap.getHeight() : super.getIntrinsicHeight();
     }
 }

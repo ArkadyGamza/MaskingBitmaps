@@ -2,6 +2,8 @@ package com.arkadygamza.maskingbitmaps;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -70,4 +72,21 @@ public class MainActivity extends AppCompatActivity {
         mImageView.setImageDrawable(maskedDrawable);
     }
 
+    public void setDrawableFixedMask(View view) {
+        FixedMaskDrawableBitmapShader maskedDrawable = new FixedMaskDrawableBitmapShader();
+        maskedDrawable.setPictureBitmap(mPictureBitmap);
+        mImageView.setImageDrawable(maskedDrawable);
+    }
+
+    public void setDrawableTextMask(View view) {
+        TextMaskDrawableBitmapShader maskedDrawable = new TextMaskDrawableBitmapShader();
+        maskedDrawable.setPictureBitmap(mPictureBitmap);
+        mImageView.setImageDrawable(maskedDrawable);
+    }
+
+    public void setRoundedBitmapDrawable(View view) {
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(null, mPictureBitmap);
+        roundedBitmapDrawable.setCircular(true);
+        mImageView.setImageDrawable(roundedBitmapDrawable);
+    }
 }
