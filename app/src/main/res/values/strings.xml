@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MaskingBitmaps</string>
+    <string name="openDrawer">Show menu</string>
+    <string name="closeDrawer">Close menu</string>
 </resources>

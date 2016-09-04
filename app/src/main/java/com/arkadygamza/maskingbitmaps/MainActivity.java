@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.arkadygamza.maskingbitmaps.utils.NavigationDecorator;
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageView mImageView;
@@ -18,10 +20,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        NavigationDecorator.setContentView(this, R.layout.main_activity);
         mImageView = (ImageView) findViewById(R.id.imageView1);
         loadImages();
     }
+
 
     private void loadImages() {
         mPictureBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.picture);
