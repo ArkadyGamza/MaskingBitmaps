@@ -68,7 +68,7 @@ public class MaskedDrawablePorterDuffDstIn extends MaskedDrawable{
 
     @Override
     public void setAlpha(int alpha) {
-        //Not implemented
+        mPaintDstIn.setAlpha(alpha);
     }
 
     @Override

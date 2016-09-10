@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -19,6 +21,7 @@ import java.util.Map;
 
 public class DemoFragment extends Fragment {
     private static final Map<String, MaskedDrawable.MaskedDrawableFactory> sDrawableFactories = new LinkedHashMap<>();
+
     static {
         sDrawableFactories.put("Porter-Duff SrcIn", MaskedDrawablePorterDuffSrcIn.getFactory());
         sDrawableFactories.put("Porter-Duff no buffer", MaskedDrawablePorterDuffNoBuffer.getFactory());
@@ -32,6 +35,7 @@ public class DemoFragment extends Fragment {
     private Bitmap mPictureBitmap;
     private Bitmap mMaskBitmap;
     private Spinner mSpinner;
+    private CheckBox mAlphaCheckBox;
     private MaskedDrawable mMaskedDrawable;
 
     @Nullable
@@ -45,6 +49,7 @@ public class DemoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mImageView = (ImageView) view.findViewById(R.id.demoFragment_imageView);
         mSpinner = (Spinner) view.findViewById(R.id.demoFragment_spinner);
+        mAlphaCheckBox = (CheckBox) view.findViewById(R.id.demoFragment_checkAlpha);
         loadImages();
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
@@ -61,6 +66,7 @@ public class DemoFragment extends Fragment {
                 mMaskedDrawable.setPictureBitmap(mPictureBitmap);
                 mMaskedDrawable.setMaskBitmap(mMaskBitmap);
                 mImageView.setImageDrawable(mMaskedDrawable);
+                applyAlpha();
             }
 
             @Override
@@ -68,6 +74,25 @@ public class DemoFragment extends Fragment {
                 //NO-OP
             }
         });
+
+        mAlphaCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                applyAlpha();
+            }
+        });
+    }
+
+    private void applyAlpha() {
+        if (mAlphaCheckBox == null){
+            return;
+        }
+        if (mAlphaCheckBox.isChecked()){
+            mMaskedDrawable.setAlpha(128);
+        }else {
+            mMaskedDrawable.setAlpha(255);
+        }
+        mImageView.invalidate();
     }
 
     private void loadImages() {
