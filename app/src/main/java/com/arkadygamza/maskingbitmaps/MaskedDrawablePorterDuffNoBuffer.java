@@ -9,22 +9,33 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
 
-public class MaskedDrawablePorterDuffNoBuffer extends Drawable {
+public class MaskedDrawablePorterDuffNoBuffer extends MaskedDrawable{
 
     private Bitmap mPictureBitmap;
     private Bitmap mMaskBitmap;
     private final Paint mPaintDstOver = new Paint();
     private final Paint mPaintClear = new Paint();
 
+    public static MaskedDrawableFactory getFactory(){
+        return new MaskedDrawableFactory() {
+            @Override
+            public MaskedDrawable createMaskedDrawable() {
+                return new MaskedDrawablePorterDuffNoBuffer();
+            }
+        };
+    }
+
     public MaskedDrawablePorterDuffNoBuffer() {
         mPaintDstOver.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
         mPaintClear.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
     }
 
+    @Override
     public void setPictureBitmap(Bitmap pictureBitmap) {
         mPictureBitmap = pictureBitmap;
     }
 
+    @Override
     public void setMaskBitmap(Bitmap maskBitmap) {
         mMaskBitmap = maskBitmap;
     }

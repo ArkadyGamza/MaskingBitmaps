@@ -10,13 +10,22 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
-public class TextMaskDrawableBitmapShader extends Drawable {
+public class TextMaskDrawableBitmapShader extends MaskedDrawable {
 
     private Bitmap mPictureBitmap;
     private final Paint mPaintShader = new Paint();
     private BitmapShader mBitmapShader;
 
+    public static MaskedDrawableFactory getFactory(){
+        return new MaskedDrawableFactory() {
+            @Override
+            public MaskedDrawable createMaskedDrawable() {
+                return new TextMaskDrawableBitmapShader();
+            }
+        };
+    }
 
+    @Override
     public void setPictureBitmap(Bitmap src) {
         mPictureBitmap = src;
         mBitmapShader = new BitmapShader(mPictureBitmap,
@@ -28,6 +37,11 @@ public class TextMaskDrawableBitmapShader extends Drawable {
         mPaintShader.setStyle(Paint.Style.FILL);
         mPaintShader.setTextAlign(Paint.Align.CENTER);
         mPaintShader.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+    }
+
+    @Override
+    public void setMaskBitmap(Bitmap maskBitmap) {
+        // NO-OP
     }
 
     @Override

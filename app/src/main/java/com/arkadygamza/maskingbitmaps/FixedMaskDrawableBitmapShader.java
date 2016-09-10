@@ -12,14 +12,23 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.shapes.PathShape;
 
-public class FixedMaskDrawableBitmapShader extends Drawable {
+public class FixedMaskDrawableBitmapShader extends MaskedDrawable {
 
     private Bitmap mPictureBitmap;
     private final Paint mPaintShader = new Paint();
     private BitmapShader mBitmapShader;
     private Path mPath;
 
+    public static MaskedDrawableFactory getFactory(){
+        return new MaskedDrawableFactory() {
+            @Override
+            public MaskedDrawable createMaskedDrawable() {
+                return new FixedMaskDrawableBitmapShader();
+            }
+        };
+    }
 
+    @Override
     public void setPictureBitmap(Bitmap src) {
         mPictureBitmap = src;
         mBitmapShader = new BitmapShader(mPictureBitmap,
@@ -32,6 +41,11 @@ public class FixedMaskDrawableBitmapShader extends Drawable {
         Path subPath = new Path();
         subPath.addOval(getIntrinsicWidth() * 0.7f, getIntrinsicHeight() * 0.7f, getIntrinsicWidth(), getIntrinsicHeight(), Path.Direction.CW);
         mPath.op(subPath, Path.Op.DIFFERENCE);
+    }
+
+    @Override
+    public void setMaskBitmap(Bitmap maskBitmap) {
+        //NO-OP
     }
 
     @Override

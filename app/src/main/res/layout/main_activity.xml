@@ -1,84 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainActivity_root"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:layout_height="match_parent"
     tools:context="com.arkadygamza.maskingbitmaps.MainActivity">
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="@drawable/bg"
-        android:scaleType="fitCenter" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setDrawablePDSrcIn"
-                android:text="Set drawable Porter-Duff SrcIn" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setDrawablePDNoBuffer"
-                android:text="Set drawable Porter-Duff no buffer" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setDrawablePDNoBufferAlpha"
-                android:text="Set drawable Porter-Duff no buffer, 0.5 alpha" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setDrawableShader"
-                android:text="Set drawable Bitmap Shader" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setDrawableShaderAlpha"
-                android:text="Set drawable Bitmap Shader, 0.5 alpha" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setDrawableFixedMask"
-                android:text="Set drawable Fixed mask" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setDrawableTextMask"
-                android:text="Set drawable text mask" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setRoundedBitmapDrawable"
-                android:text="Set RoundedBitmapDrawable" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setDrawablePDDstIn"
-                android:text="Set drawable Porter-Duff DstIn :(" />
-
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+</FrameLayout>

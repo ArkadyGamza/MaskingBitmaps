@@ -1,6 +1,5 @@
 package com.arkadygamza.maskingbitmaps.utils;
 
-import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,8 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 
-import com.arkadygamza.maskingbitmaps.MainActivity;
-import com.arkadygamza.maskingbitmaps.PerformanceActivity;
+import com.arkadygamza.maskingbitmaps.DemoFragment;
+import com.arkadygamza.maskingbitmaps.PerformanceFragment;
 import com.arkadygamza.maskingbitmaps.R;
 
 public class NavigationDecorator {
@@ -39,14 +38,20 @@ public class NavigationDecorator {
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()){
                     case R.id.navigationMenu_demo:
-                        activity.startActivity(new Intent(activity, MainActivity.class));
+                        activity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.mainActivity_root, new DemoFragment())
+                            .commit();
                         break;
                     case R.id.navigationMenu_performance:
-                        activity.startActivity(new Intent(activity, PerformanceActivity.class));
+                        activity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.mainActivity_root, new PerformanceFragment())
+                            .commit();
                         break;
                 }
 
-                return true;
+                return false;
             }
         });
 

@@ -8,20 +8,30 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Shader;
-import android.graphics.drawable.Drawable;
 
-public class MaskedDrawableBitmapShader extends Drawable {
+public class MaskedDrawableBitmapShader extends MaskedDrawable{
 
     private Bitmap mPictureBitmap;
     private Bitmap mMaskBitmap;
     private final Paint mPaintShader = new Paint();
     private BitmapShader mBitmapShader;
 
+    public static MaskedDrawableFactory getFactory(){
+        return new MaskedDrawableFactory() {
+            @Override
+            public MaskedDrawable createMaskedDrawable() {
+                return new MaskedDrawableBitmapShader();
+            }
+        };
+    }
+
+    @Override
     public void setMaskBitmap(Bitmap maskBitmap) {
         mMaskBitmap = maskBitmap;
         updateScaleMatrix();
     }
 
+    @Override
     public void setPictureBitmap(Bitmap src) {
         mPictureBitmap = src;
         mBitmapShader = new BitmapShader(mPictureBitmap,

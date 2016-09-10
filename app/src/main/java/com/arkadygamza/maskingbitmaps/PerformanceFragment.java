@@ -5,28 +5,32 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.arkadygamza.maskingbitmaps.utils.NavigationDecorator;
-
-public class PerformanceActivity extends AppCompatActivity {
+public class PerformanceFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private Bitmap mPictureBitmap;
     private Bitmap mMaskBitmap;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        NavigationDecorator.setContentView(this, R.layout.performance_activity);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.performance_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         loadImages();
-        mRecyclerView = (RecyclerView) findViewById(R.id.performance_recyclerView);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.performance_recyclerView);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false));
         mRecyclerView.setAdapter(new PerformanceAdapter());
     }
 
@@ -49,7 +53,7 @@ public class PerformanceActivity extends AppCompatActivity {
 
         @Override
         public PerformanceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.item, parent, false);
+            View view = getActivity().getLayoutInflater().inflate(R.layout.item, parent, false);
             return new PerformanceViewHolder(view);
         }
 
