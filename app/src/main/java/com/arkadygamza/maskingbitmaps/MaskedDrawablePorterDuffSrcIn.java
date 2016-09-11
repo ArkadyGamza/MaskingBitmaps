@@ -51,6 +51,12 @@ public class MaskedDrawablePorterDuffSrcIn extends MaskedDrawable {
             return;
         }
 
+        if (mBufferBitmap != null
+            && mBufferBitmap.getWidth() == width
+            && mBufferBitmap.getHeight() == height){
+            return;
+        }
+
         mBufferBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888); //that's too bad
         mBufferCanvas = new Canvas(mBufferBitmap);
     }

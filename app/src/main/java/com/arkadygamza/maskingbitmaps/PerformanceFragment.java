@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -42,6 +43,7 @@ public class PerformanceFragment extends Fragment {
     private class PerformanceViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView mImageView;
+        MaskedDrawable mMaskedDrawable = new MaskedDrawableBitmapShader();
 
         public PerformanceViewHolder(View itemView) {
             super(itemView);
@@ -59,7 +61,7 @@ public class PerformanceFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(PerformanceViewHolder holder, int position) {
-            holder.mImageView.setImageDrawable(loadDrawable());
+            holder.mImageView.setImageDrawable(loadDrawable(holder));
         }
 
         @Override
@@ -67,11 +69,10 @@ public class PerformanceFragment extends Fragment {
             return 100;
         }
 
-        private Drawable loadDrawable() {
-            MaskedDrawableBitmapShader drawableBitmapShader = new MaskedDrawableBitmapShader();
-            drawableBitmapShader.setMaskBitmap(mMaskBitmap);
-            drawableBitmapShader.setPictureBitmap(mPictureBitmap);
-            return drawableBitmapShader;
+        private Drawable loadDrawable(@NonNull PerformanceViewHolder holder) {
+            holder.mMaskedDrawable.setMaskBitmap(mMaskBitmap);
+            holder.mMaskedDrawable.setPictureBitmap(mPictureBitmap);
+            return holder.mMaskedDrawable;
         }
     }
 }
