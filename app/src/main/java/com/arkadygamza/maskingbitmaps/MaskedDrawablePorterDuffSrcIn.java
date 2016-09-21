@@ -18,7 +18,7 @@ public class MaskedDrawablePorterDuffSrcIn extends MaskedDrawable {
     private Canvas mBufferCanvas;
     private final Paint mPaintSrcIn = new Paint();
 
-    public static MaskedDrawableFactory getFactory(){
+    public static MaskedDrawableFactory getFactory() {
         return new MaskedDrawableFactory() {
             @Override
             public MaskedDrawable createMaskedDrawable() {
@@ -34,11 +34,13 @@ public class MaskedDrawablePorterDuffSrcIn extends MaskedDrawable {
     @Override
     public void setPictureBitmap(Bitmap pictureBitmap) {
         mPictureBitmap = pictureBitmap;
+        redrawBufferCanvas();
     }
 
     @Override
     public void setMaskBitmap(Bitmap maskBitmap) {
         mMaskBitmap = maskBitmap;
+        redrawBufferCanvas();
     }
 
     @Override
@@ -53,23 +55,26 @@ public class MaskedDrawablePorterDuffSrcIn extends MaskedDrawable {
 
         if (mBufferBitmap != null
             && mBufferBitmap.getWidth() == width
-            && mBufferBitmap.getHeight() == height){
+            && mBufferBitmap.getHeight() == height) {
             return;
         }
 
         mBufferBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888); //that's too bad
         mBufferCanvas = new Canvas(mBufferBitmap);
+        redrawBufferCanvas();
     }
 
-    @Override
-    public void draw(Canvas canvas) {
-        if (mPictureBitmap == null || mMaskBitmap == null) {
+    private void redrawBufferCanvas() {
+        if (mPictureBitmap == null || mMaskBitmap == null || mBufferCanvas == null) {
             return;
         }
 
         mBufferCanvas.drawBitmap(mMaskBitmap, 0, 0, null);
         mBufferCanvas.drawBitmap(mPictureBitmap, 0, 0, mPaintSrcIn);
+    }
 
+    @Override
+    public void draw(Canvas canvas) {
         //dump the buffer
         canvas.drawBitmap(mBufferBitmap, 0, 0, null);
     }
